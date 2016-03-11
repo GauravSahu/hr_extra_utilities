@@ -1,7 +1,62 @@
 <?xml version="1.0"?>
 <openerp>
     <data>     
-        
+        <record model="ir.ui.view" id="view_time_adjustment_form">
+            <field name="name">time.adjustment.form</field>
+            <field name="model">time.adjustment</field>
+            <field name="arch" type="xml">
+                <form string="Time Adjustment">
+                    <header>
+                        <button string="Approve" name="approve_update_punch"    type="object"  class="oe_highlight"  />
+                        <button string="Refuse" name="refuse_requision_req"   type="object"  class="oe_highlight"  />
+                    </header>
+                    <sheet>
+                        <button name="%(import_employee_action)d" type="action"  string="Import Employee" class="oe_highlight"/>
+                        <group>
+                            <field name="name" />
+                            <field name="time_to" />
+                            <field name="time_h" />
+                            <field name="time_m" />
+                            <field name="opration" />
+                            <field name="address_id" />
+                            <field name="lines" nolable="1"  >
+                                <tree string="Employee List" editable="top">
+                                    <field name="employee_id"/>
+                                    <field name="in_time"/>
+                                    <field name="out_time"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_time_adjustment_tree">
+            <field name="name">time.adjustment.tree</field>
+            <field name="model">time.adjustment</field>
+            <field name="arch" type="xml">
+                <tree string="Adjustment Request">
+                    <!-- <button string="Approve" name="approve_requision_req" groups="base.employee_requision_hr_manager_group" states="confirm" type="object" icon="terp-gtk-jump-to-ltr"/> -->
+                    <field name="name"/>
+                    <field name="address_id"/>
+                    <!-- <field name="out_time"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="time_adjustment_form_action" model="ir.actions.act_window">
+            <field name="name">Adjustment Requisition Request</field>
+            <field name="res_model">time.adjustment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="context">{'search_default_my_req':1}</field> -->
+            <field name="view_id" ref="view_time_adjustment_form"/>
+        </record>
+         <menuitem id="menu_hr_extra_time_parent" name="Attendance Time Adjustment"  parent="hr.menu_hr_root" />
+        <menuitem id="menu_hr_extra_time_request" name="Time Adjustment Request"  parent="menu_hr_extra_time_parent"  action="time_adjustment_form_action"/>
+         <menuitem id="menu_hr_extra_time_request_approve" name="Time Adjustment Request Approve"  parent="menu_hr_extra_time_parent"  action="time_adjustment_form_action"/>
+
 
     </data>
 </openerp>

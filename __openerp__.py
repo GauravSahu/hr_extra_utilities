@@ -35,6 +35,7 @@ Bulk Update Time and Employee Master Information
     'website': 'https://github.com/gauravsahu',
     'depends': ['base','hr'],
     'data': [
+        'wizard/import_employee_view_wiz.xml',
         'hr_extra_view.xml',
     ],
     'installable': True,
