@@ -7,23 +7,30 @@
             <field name="arch" type="xml">
                 <form string="Time Adjustment">
                     <header>
-                        <button string="Approve" name="approve_update_punch"    type="object"  class="oe_highlight"  />
-                        <button string="Refuse" name="refuse_requision_req"   type="object"  class="oe_highlight"  />
+                        <button string="Approve" name="approve_update_punch"  states="confirm"  type="object"  class="oe_highlight"  />
+                        <button string="Refuse" name="refuse_requision_req"   type="object" states='confirm'  class="oe_highlight"  />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate" statusbar_colors='{"confirm":"blue","validate1":"blue","refuse":"red"}'/>
                     </header>
                     <sheet>
-                        <button name="%(import_employee_action)d" type="action"  string="Import Employee" class="oe_highlight"/>
-                        <group>
+                        <button  class="oe_stat_button" name="%(import_employee_action)d"  states='confirm' string="Import Employee"  type="action" icon="fa-upload">
+                         </button>
+                        <!-- <button name="%(import_employee_action)d" type="action"  string="Import Employee" class="oe_highlight"/> -->
+                        <group col="4" colspan="4">
                             <field name="name" />
                             <field name="time_to" />
                             <field name="time_h" />
                             <field name="time_m" />
                             <field name="opration" />
                             <field name="address_id" />
+                        </group>
+                        <group>
                             <field name="lines" nolable="1"  >
                                 <tree string="Employee List" editable="top">
                                     <field name="employee_id"/>
                                     <field name="in_time"/>
                                     <field name="out_time"/>
+                                    <field name="in_time_new"/>
+                                    <field name="out_time_new"/>
                                 </tree>
                             </field>
                         </group>

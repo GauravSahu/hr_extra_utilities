@@ -71,7 +71,7 @@ class hr_employee_import_wizard(osv.osv_memory):
                 n_cols=sh.ncols
                 date_from = parent_obj.name
                 date_to = parent_obj.time_to
-
+                address_id = parent_obj.address_id.id
                 date_from = datetime.strptime(date_from, DATETIME_FORMAT)
                 date_to = datetime.strptime(date_to, DATETIME_FORMAT)
 
@@ -88,7 +88,7 @@ class hr_employee_import_wizard(osv.osv_memory):
                     print row
                     emp_code = name = ' '
                     emp_code = sh.row_values(row)[0]
-                    emp_id=self.pool.get('hr.employee').search(cr,uid,[('emp_code','=',str(int(emp_code)))])
+                    emp_id=self.pool.get('hr.employee').search(cr,uid,[('emp_code','=',str(int(emp_code))),('address_id','=',address_id)])
                     if emp_id:
                         print emp_code,emp_id,date_from,date_to
                         attendance_ids = self.pool.get('hr.attendance').search(cr,uid,[('name','>=',date_from),('name','<=',date_to),('employee_id','=',emp_id[0])])
